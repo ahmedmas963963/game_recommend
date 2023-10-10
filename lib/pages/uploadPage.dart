@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:game_recommend/pages/homePage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -19,8 +20,16 @@ class _UploadGameScreenState extends State<UploadGameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink[900],
+        backgroundColor: Colors.black,
         title: Text('Upload Game'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -48,13 +57,15 @@ class _UploadGameScreenState extends State<UploadGameScreen> {
                 filled: true,
                 fillColor: Colors.white,
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink[900]!),
+                  borderSide: BorderSide(color: Colors.black!),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink[900]!),
+                  borderSide: BorderSide(color: Colors.black!),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
+                labelStyle: TextStyle(
+                    color: Colors.black), // Set label text color to pink
               ),
             ),
             SizedBox(height: 16.0),
@@ -65,38 +76,53 @@ class _UploadGameScreenState extends State<UploadGameScreen> {
                 filled: true,
                 fillColor: Colors.white,
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink[900]!),
+                  borderSide: BorderSide(color: Colors.black!),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink[900]!),
+                  borderSide: BorderSide(color: Colors.black!),
                   borderRadius: BorderRadius.circular(30.0),
+                ),
+                labelStyle: TextStyle(
+                    color: Colors.black), // Set label text color to pink
+              ),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0), // Make it round
+                ),
+                primary:
+                    Colors.black, // Set the button background color to black
+              ),
+              onPressed: _pickImage,
+              child: Container(
+                width:
+                    double.infinity, // Set the width to match the text fields
+                child: Center(
+                  child:
+                      Text('Pick Image', style: TextStyle(color: Colors.white)),
                 ),
               ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0), // Make it rectangular
-                    ),
-                    primary: Colors.pink[900], // Set the button color to dark pink
-                  
-                  ),
-              onPressed: _pickImage,
-              child: Text('Pick Image'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0), // Make it rectangular
-                    ),
-                    primary: Colors.pink[900], // Set the button color to dark pink
-                  
-                  ),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0), // Make it round
+                ),
+                primary:
+                    Colors.black, // Set the button background color to black
+              ),
               onPressed: _uploadGame,
-              child: Text('Upload'),
+              child: Container(
+                width:
+                    double.infinity, // Set the width to match the text fields
+                child: Center(
+                  child: Text('Upload', style: TextStyle(color: Colors.white)),
+                ),
+              ),
             ),
             _image != null
                 ? Padding(
@@ -116,7 +142,8 @@ class _UploadGameScreenState extends State<UploadGameScreen> {
   }
 
   void _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       _image = File(pickedFile!.path);
     });
@@ -157,7 +184,8 @@ class _UploadGameScreenState extends State<UploadGameScreen> {
           .collection('games');
 
       // Upload the image to Firebase Storage
-      final storageRef = FirebaseStorage.instance.ref().child('game_images/$gameName.jpg');
+      final storageRef =
+          FirebaseStorage.instance.ref().child('game_images/$gameName.jpg');
       await storageRef.putFile(_image!);
 
       // Get the URL of the uploaded image

@@ -17,8 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+    debugShowCheckedModeBanner: false,
+      title: 'GAME RECOMMEND APP',
       theme: ThemeData(
+    
         primaryColor: Colors.black, // Set the primary color to black
         hintColor: Colors.pink[900], // Set the accent color to dark pink
       ),

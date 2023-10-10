@@ -95,11 +95,11 @@ await FirebaseAuth.instance.signInWithEmailAndPassword(
                   decoration: InputDecoration(
                      focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
+    borderSide: BorderSide(color:Colors.black), // Set the border color when focused
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when not focused
+    borderSide: BorderSide(color:Colors.black), // Set the border color when not focused
   ),
                     labelText: "Email",
                     fillColor: Colors.white, // Set the background color to white
@@ -107,6 +107,8 @@ await FirebaseAuth.instance.signInWithEmailAndPassword(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0), // Make it circular
                     ),
+                        labelStyle: TextStyle(color:Colors.black), // Set label text color to pink
+
                   ),
                   validator: validateEmail,
                 ),
@@ -117,11 +119,11 @@ await FirebaseAuth.instance.signInWithEmailAndPassword(
                   decoration: InputDecoration(
                      focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
+    borderSide: BorderSide(color:Colors.black), // Set the border color when focused
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when not focused
+    borderSide: BorderSide(color:Colors.black), // Set the border color when not focused
   ),
                     labelText: "Password",
                     fillColor: Colors.white,
@@ -129,67 +131,70 @@ await FirebaseAuth.instance.signInWithEmailAndPassword(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
+                        labelStyle: TextStyle(color:Colors.black), // Set label text color to pink
+
                   ),
+                  
                   validator: validatePassword,
                 ),
                 SizedBox(height: 16.0),
-                TextFormField(
-                  controller: reEnterPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                     focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when not focused
-  ),
-                    labelText: "Re-enter Password",
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                  validator: validateReEnterPassword,
-                ),
-                SizedBox(height: 32.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0), // Make it rectangular
-                    ),
-                    primary: Colors.pink[900], // Set the button color to dark pink
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      String email = emailController.text;
-                      String password = passwordController.text;
-                      signIn();
-                    }
-                  },
-                  child: isLoading
-                      ? Center(
-                          child: const CircularProgressIndicator(
-                            color: Colors.white, // Set the loading indicator color
-                          ),
-                        )
-                      : Text("Sign In"),
-                ),
-                SizedBox(height: 16.0),
-                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0), // Make it rectangular
-                    ),
-                    primary: Colors.pink[900], // Set the button color to dark pink
-                  
-                  ),
-                  onPressed: widget.onPressed,
-                  child: Text("Sign Up"),
+  //               TextFormField(
+  //                 controller: reEnterPasswordController,
+  //                 obscureText: true,
+  //                 decoration: InputDecoration(
+  //                    focusedBorder: OutlineInputBorder(
+  //   borderRadius: BorderRadius.circular(30.0),
+  //   borderSide: BorderSide(color:Colors.black), // Set the border color when focused
+  // ),
+  // enabledBorder: OutlineInputBorder(
+  //   borderRadius: BorderRadius.circular(30.0),
+  //   borderSide: BorderSide(color:Colors.black), // Set the border color when not focused
+  // ),
+  //                   labelText: "Re-enter Password",
+  //                   fillColor: Colors.white,
+  //                   filled: true,
+  //                   border: OutlineInputBorder(
+  //                     borderRadius: BorderRadius.circular(30.0),
+  //                   ),
+  //                       labelStyle: TextStyle(color:Colors.black), // Set label text color to pink
 
-                  )
+  //                 ),
+  //                 validator: validateReEnterPassword,
+  //               ),
+           ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0), // Make it circular
+    ),
+    primary: Colors.black, // Set the button background color to black
+  ),
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      String email = emailController.text;
+      String password = passwordController.text;
+      signIn();
+    }
+  },
+  child: isLoading
+      ? Center(
+          child: const CircularProgressIndicator(
+            color: Colors.white, // Set the loading indicator color
+          ),
+        )
+      : Text("Sign In", style: TextStyle(fontSize: 18.0)), // Increase font size
+),
+SizedBox(height: 16.0),
+ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0), // Make it circular
+    ),
+    primary: Colors.black, // Set the button background color to black
+  ),
+  onPressed: widget.onPressed,
+  child: Text("Sign Up", style: TextStyle(fontSize: 18.0)), // Increase font size
+)
+
               
               ],
             ),

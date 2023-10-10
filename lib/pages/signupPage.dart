@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_recommend/pages/loginAndSignup.dart';
+import 'package:game_recommend/pages/loginPage.dart';
 
 class SignUpScreen extends StatefulWidget {
   final void Function()? onPressed;
@@ -66,6 +68,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         isLoading = false;
       });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              logInAndSignUp(), // Replace with your sign-in screen class.
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         isLoading = false;
@@ -89,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
+ 
       body: Form(
         key: _formKey,
         child: Center(
@@ -101,14 +109,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 TextFormField(
                   controller: fullNameController,
                   decoration: InputDecoration(
-                     focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when not focused
-  ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Set the border color when focused
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .black), // Set the border color when not focused
+                    ),
+                labelStyle: TextStyle(
+                        color: Colors.black), // Set label text color to pink
+    
                     labelText: "Full Name",
                     fillColor: Colors.white,
                     filled: true,
@@ -122,20 +137,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
-                     focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when not focused
-  ),
-                    labelText: "Email",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Set the border color when focused
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .black), // Set the border color when not focused
+                    ),
+                     labelText: "Email",
                     fillColor: Colors.white,
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
+                    labelStyle: TextStyle(
+                        color: Colors.black),  // Set label text color to pink
                   ),
                   validator: validateEmail,
                 ),
@@ -144,20 +165,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
-                     focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.white), // Set the border color when not focused
-  ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Set the border color when focused
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .black), // Set the border color when not focused
+                    ),
                     labelText: "Password",
                     fillColor: Colors.white,
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
+                    labelStyle: TextStyle(
+                        color: Colors.black), // Set label text color to pink
                   ),
                   validator: validatePassword,
                 ),
@@ -166,47 +193,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: reEnterPasswordController,
                   obscureText: true,
                   decoration: InputDecoration(
-                     focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.pink), // Set the border color when focused
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-    borderSide: BorderSide(color: Colors.white), // Set the border color when not focused
-  ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Set the border color when focused
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .black), // Set the border color when not focused
+                    ),
                     labelText: "Re-enter Password",
                     fillColor: Colors.white,
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
+                    labelStyle: TextStyle(
+                        color: Colors.black), // Set label text color to pink
                   ),
                   validator: validateReEnterPassword,
                 ),
                 SizedBox(height: 32.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0),
-                    ),
-                    primary: Colors.pink[900],
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      String fullName = fullNameController.text;
-                      String email = emailController.text;
-                      String password = passwordController.text;
-                      signUp();
-                    }
-                  },
-                  child: isLoading
-                      ? Center(
-                          child: const CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        )
-                      : Text("Sign Up"),
-                ),
+               ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0), // Make it circular
+    ),
+    primary: Colors.black,
+    minimumSize: Size(200.0, 50.0), // Set a fixed width and height
+  ),
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      String fullName = fullNameController.text;
+      String email = emailController.text;
+      String password = passwordController.text;
+      signUp();
+    }
+  },
+  child: isLoading
+      ? Center(
+          child: const CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        )
+      : Text("Sign Up", style: TextStyle(fontSize: 18.0)), // Increase font size
+),
+
               ],
             ),
           ),
